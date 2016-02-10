@@ -12,19 +12,9 @@
 */
 
 Route::get('/', function () {
-	$books = AdvancedELOQUENT\Book::get();
+	$categories = AdvancedELOQUENT\Category::get();
 
-    return view('destroy', compact('books'));
-});
-
-Route::delete('destroy', function(Illuminate\Http\Request $request) {
-	$ids = $request->get('ids');
-
-	if(count($ids)){
-		AdvancedELOQUENT\Book::destroy($ids);
-	}
-
-	return back();
+	return view('relationship', compact('categories'));
 });
 
 /*
