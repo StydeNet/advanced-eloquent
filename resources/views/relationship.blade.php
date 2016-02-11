@@ -7,7 +7,7 @@
         @foreach($categories as $category)
         	<p>
         		{{ $category->name }}
-        		({{ count($category->books) }})
+        		({{ $category->num_books }})
         	</p>
         	<ul>
         	@foreach($category->books as $book)
