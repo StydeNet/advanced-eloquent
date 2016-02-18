@@ -12,7 +12,9 @@
 */
 
 Route::get('/', function () {
-	$categories = AdvancedELOQUENT\Category::has('books')->get();
+	$categories = AdvancedELOQUENT\Category::whereHas('books', function($query){
+		$query->where('status', 'public');
+	})->get();
 
 	return view('relationship', compact('categories'));
 });
