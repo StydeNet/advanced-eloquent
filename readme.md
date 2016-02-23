@@ -1,27 +1,37 @@
-## Laravel PHP Framework
+# Curso avanzado de Eloquent ORM
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+El curso avanzado de **Eloquent, el ORM de Laravel**,&nbsp;te ayudará a&nbsp;conocer mucho mejor todos los features y características de este manejador de base de datos.&nbsp;Este material&nbsp;está dirigido a personas que ya han trabajado con el framework Laravel y por lo tanto ya tienen conocimientos básicos sobre Eloquent, pero están interesados en aprender más para mejorar sus habilidades y desarrollar mejores y más complejas aplicaciones con el framework Laravel.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
+Si por el contrario, apenas quieres comenzar con Laravel te recomendamos tomar primero nuestros cursos básicos:
 
-Laravel is accessible, yet powerful, providing powerful tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+*   Primeros pasos con Laravel
+*   [Crea tu primera aplicación con Laravel 5](https://styde.net/curso-crea-aplicaciones-con-laravel-5/)
+*   [Curso básico de Eloquent con Laravel 5.1](https://styde.net/curso-basico-de-eloquent-orm-con-laravel-5-1/)
 
-## Official Documentation
+#### Parte 1: Soft delete y Relaciones 
 
-Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
+*   [1\. Introducción y primeros pasos](https://styde.net/eloquent-avanzado-introduccion-y-primeros-pasos/) - 8:36
 
-## Contributing
+*   [2\. Restaurar registros borrados](https://styde.net/eloquent-avanzadorestaurar-registros-borrados/) - 9:40
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+*   [3\. Eliminar múltiples registros simultáneamente](https://styde.net/eloquent-avanzado-eliminar-multiples-registros-simultaneamente/) - 7:20
 
-## Security Vulnerabilities
+*   [4\. Relación Uno a Muchos con hasMany()](https://styde.net/eloquent-avanzado-relacion-uno-a-muchos-con-hasmany/) - 8:35
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+*   [5\. Consulta de relaciones existentes con has()](https://styde.net/eloquent-avanzado-consulta-de-relaciones-existentes-con-has/) - 6:17
 
-### License
+*   [6\. Consulta de relaciones personalizadas con whereHas()](https://styde.net/eloquent-avanzado-consulta-de-relaciones-personalizadas-con-wherehas/) - 6:10
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+#### Cursos
+
+*   **Laravel desde cero**
+*   [                    Primeros pasos con Laravel 5.*                ](https://styde.net/curso-primeros-pasos-con-laravel-5/)
+*   [                    Curso básico de Eloquent ORM        ](https://styde.net/curso-basico-de-eloquent-orm-con-laravel-5-1/)
+*   [                    Crea una aplicación con Laravel 5                ](https://styde.net/curso-crea-aplicaciones-con-laravel-5/)
+*   [                    Curso de Laravel 5.1                ](https://styde.net/curso-introductorio-laravel-5-1/)
+*   **Laravel y PHP avanzado**
+*   [                    Curso de administración de servidores para PHP y Laravel                ](https://styde.net/curso-configuracion-administracion-de-servidores-php-laravel/)
+*   [                    Curso avanzado de Eloquent ORM                ](https://styde.net/curso-avanzado-de-eloquent-orm/)
+*   [                    Crea componentes para PHP                ](https://styde.net/curso-crea-componentes-para-php-y-laravel/)
+*   [                    Interfaces dinámicas con Laravel y jQuery                ](https://styde.net/curso-de-interfaces-dinamicas-con-laravel-y-jquery/)
+*   [Ver todos](https://styde.net/proyectos)
