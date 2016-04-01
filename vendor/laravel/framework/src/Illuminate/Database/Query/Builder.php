@@ -213,12 +213,12 @@ class Builder
      * @return void
      */
     public function __construct(ConnectionInterface $connection,
-                                Grammar $grammar,
-                                Processor $processor)
+                                Grammar $grammar = null,
+                                Processor $processor = null)
     {
-        $this->grammar = $grammar;
-        $this->processor = $processor;
         $this->connection = $connection;
+        $this->grammar = $grammar ?: $connection->getQueryGrammar();
+        $this->processor = $processor ?: $connection->getPostProcessor();
     }
 
     /**
@@ -1628,7 +1628,7 @@ class Builder
 
         return $this->chunk($count, function ($results) use ($callback) {
             foreach ($results as $key => $value) {
-                if ($callback($item, $key) === false) {
+                if ($callback($value, $key) === false) {
                     return false;
                 }
             }
@@ -2156,7 +2156,7 @@ class Builder
             return $this->dynamicWhere($method, $parameters);
         }
 
-        $className = get_class($this);
+        $className = static::class;
 
         throw new BadMethodCallException("Call to undefined method {$className}::{$method}()");
     }
