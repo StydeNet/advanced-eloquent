@@ -72,6 +72,13 @@ class Validator implements ValidatorContract
     protected $files = [];
 
     /**
+     * The initial rules provided.
+     *
+     * @var array
+     */
+    protected $initialRules;
+
+    /**
      * The rules to be applied to the data.
      *
      * @var array
@@ -166,7 +173,7 @@ class Validator implements ValidatorContract
      */
     protected $dependentRules = [
         'RequiredWith', 'RequiredWithAll', 'RequiredWithout', 'RequiredWithoutAll',
-        'RequiredIf', 'RequiredUnless', 'Confirmed', 'Same', 'Different',
+        'RequiredIf', 'RequiredUnless', 'Confirmed', 'Same', 'Different', 'Unique',
     ];
 
     /**
@@ -185,11 +192,9 @@ class Validator implements ValidatorContract
         $this->customMessages = $messages;
         $this->data = $this->parseData($data);
         $this->customAttributes = $customAttributes;
+        $this->initialRules = $rules;
 
-        // Explode the rules first so that the implicit ->each calls are made...
-        $rules = $this->explodeRules($rules);
-
-        $this->rules = array_merge((array) $this->rules, $rules);
+        $this->setRules($rules);
     }
 
     /**
@@ -293,6 +298,10 @@ class Validator implements ValidatorContract
 
         $pattern = str_replace('\*', '[^\.]+', preg_quote($attribute));
 
+        $data = array_merge($data, $this->extractValuesForWildcards(
+            $data, $attribute
+        ));
+
         foreach ($data as $key => $value) {
             if (Str::startsWith($key, $attribute) || (bool) preg_match('/^'.$pattern.'\z/', $key)) {
                 foreach ((array) $rules as $ruleKey => $ruleValue) {
@@ -321,6 +330,36 @@ class Validator implements ValidatorContract
         $data = $this->data;
 
         return data_fill($data, $attribute, null);
+    }
+
+    /**
+     * Get all of the exact attribute values for a given wildcard attribute.
+     *
+     * @param  array  $data
+     * @param  string  $attribute
+     * @return array
+     */
+    public function extractValuesForWildcards($data, $attribute)
+    {
+        $keys = [];
+
+        $pattern = str_replace('\*', '[^\.]+', preg_quote($attribute));
+
+        foreach ($data as $key => $value) {
+            if ((bool) preg_match('/^'.$pattern.'/', $key, $matches)) {
+                $keys[] = $matches[0];
+            }
+        }
+
+        $keys = array_unique($keys);
+
+        $data = [];
+
+        foreach ($keys as $key) {
+            $data[$key] = array_get($this->data, $key);
+        }
+
+        return $data;
     }
 
     /**
@@ -1202,6 +1241,10 @@ class Validator implements ValidatorContract
         if (isset($parameters[2])) {
             list($idColumn, $id) = $this->getUniqueIds($parameters);
 
+            if (preg_match('/\[(.*)\]/', $id, $matches)) {
+                $id = $this->getValue($matches[1]);
+            }
+
             if (strtolower($id) == 'null') {
                 $id = null;
             }
@@ -1926,28 +1969,32 @@ class Validator implements ValidatorContract
      */
     protected function getAttribute($attribute)
     {
-        $attributeName = $this->getPrimaryAttribute($attribute);
+        $primaryAttribute = $this->getPrimaryAttribute($attribute);
 
-        // The developer may dynamically specify the array of custom attributes
-        // on this Validator instance. If the attribute exists in this array
-        // it takes precedence over all other ways we can pull attributes.
-        if (isset($this->customAttributes[$attributeName])) {
-            return $this->customAttributes[$attributeName];
-        }
+        $expectedAttributes = $attribute != $primaryAttribute ? [$attribute, $primaryAttribute] : [$attribute];
 
-        $key = "validation.attributes.{$attributeName}";
+        foreach ($expectedAttributes as $expectedAttributeName) {
+            // The developer may dynamically specify the array of custom attributes
+            // on this Validator instance. If the attribute exists in this array
+            // it takes precedence over all other ways we can pull attributes.
+            if (isset($this->customAttributes[$expectedAttributeName])) {
+                return $this->customAttributes[$expectedAttributeName];
+            }
 
-        // We allow for the developer to specify language lines for each of the
-        // attributes allowing for more displayable counterparts of each of
-        // the attributes. This provides the ability for simple formats.
-        if (($line = $this->translator->trans($key)) !== $key) {
-            return $line;
+            $key = "validation.attributes.{$expectedAttributeName}";
+
+            // We allow for the developer to specify language lines for each of the
+            // attributes allowing for more displayable counterparts of each of
+            // the attributes. This provides the ability for simple formats.
+            if (($line = $this->translator->trans($key)) !== $key) {
+                return $line;
+            }
         }
 
         // When no language line has been specified for the attribute and it is
         // also an implicit attribute we will display the raw attribute name
         // and not modify it with any replacements before we display this.
-        if (isset($this->implicitAttributes[$attributeName])) {
+        if (isset($this->implicitAttributes[$primaryAttribute])) {
             return $attribute;
         }
 
@@ -2625,11 +2672,15 @@ class Validator implements ValidatorContract
      * Set the data under validation.
      *
      * @param  array  $data
-     * @return void
+     * @return $this
      */
     public function setData(array $data)
     {
         $this->data = $this->parseData($data);
+
+        $this->setRules($this->initialRules);
+
+        return $this;
     }
 
     /**
@@ -2650,7 +2701,13 @@ class Validator implements ValidatorContract
      */
     public function setRules(array $rules)
     {
-        $this->rules = $this->explodeRules($rules);
+        $this->initialRules = $rules;
+
+        $this->rules = [];
+
+        $rules = $this->explodeRules($this->initialRules);
+
+        $this->rules = array_merge($this->rules, $rules);
 
         return $this;
     }
