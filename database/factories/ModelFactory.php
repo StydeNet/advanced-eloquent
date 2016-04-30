@@ -28,3 +28,9 @@ $factory->define(AdvancedELOQUENT\Book::class, function (Faker\Generator $faker)
         'category_id' => $faker->randomElement([1,2,3]),
 	];
 });
+
+$factory->define(AdvancedELOQUENT\Exam::class, function (Faker\Generator $faker){
+    return [
+        'title' => $faker->name,
+    ];
+});

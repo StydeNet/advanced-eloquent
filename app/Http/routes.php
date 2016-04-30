@@ -11,14 +11,21 @@
 |
 */
 
-Route::get('/', function () {
-	$books = DB::table('categories')
-		->join('books', 'categories.id', '=', 'books.category_id')
-		->where('books.status', 'public')
-		->select('categories.name as category', 'books.title', 'books.description')
-		->get();
+use AdvancedELOQUENT\Exam;
 
-	return view('querybuilder.index', compact('books'));
+Route::get('/', function () {
+	$exam = Exam::find('3');
+
+	echo $exam->title;
+
+	foreach ($exam->users as $user) {
+		echo 
+			'<li>' .
+			$user->name .
+			' NOTA ' . $user->pivot->punctuation .
+			' Fecha ' . $user->pivot->created_at .
+			'</li>';
+	}
 });
 
 

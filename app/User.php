@@ -24,11 +24,20 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function manyBooks(){
+    public function manyBooks()
+    {
         return $this->belongsToMany(Book::class);
     }
 
-    public function getBooksAttribute(){
+    public function getBooksAttribute()
+    {
         return $this->manyBooks()->lists('book_id')->toArray();
+    }
+
+    public function exams()
+    {
+        return $this->belongsToMany(Exam::class)
+            ->withPivot('punctuation')
+            ->withTimestamps();
     }
 }
