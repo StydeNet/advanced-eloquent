@@ -10,11 +10,13 @@ class Book extends Model
     use SoftDeletes;
 
     //relación belongsTo, pertenece a una categoría...
-    public function category(){
+    public function category()
+    {
     	return $this->belongsTo(Category::class);
     }
 
-    public function users(){
-    	return $this->belongsToMany(User::class);
+    public function user()
+    {
+    	return $this->belongsTo(User::class);
     }
 }

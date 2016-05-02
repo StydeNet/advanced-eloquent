@@ -16,6 +16,7 @@ class CreateBooksTable extends Migration
             $table->increments('id');
 
             $table->integer('category_id')->unsigned();
+            $table->integer('user_id')->unsigned();
             $table->string('title');
             $table->text('description');
             $table->enum('status', ['public', 'draft'])->default('draft');
@@ -24,6 +25,9 @@ class CreateBooksTable extends Migration
             $table->timestamps(); //created_at updated_at
 
             $table->foreign('category_id')->references('id')->on('categories')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+            $table->foreign('user_id')->references('id')->on('users')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
         });
