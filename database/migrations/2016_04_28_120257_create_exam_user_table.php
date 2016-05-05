@@ -17,7 +17,7 @@ class CreateExamUserTable extends Migration
 
             $table->integer('exam_id')->unsigned();
             $table->integer('user_id')->unsigned();
-            $table->integer('punctuation')->unsigned();
+            $table->integer('score')->unsigned();
 
             $table->timestamps();
 

@@ -13,7 +13,7 @@ class Exam extends Model
     public function users()
     {
     	return $this->belongsToMany(User::class)
-            ->withPivot('punctuation')
+            ->withPivot('score')
             ->withTimestamps();
     }
 
