@@ -22,7 +22,7 @@ Route::get('/', function () {
 		echo 
 			'<li>' .
 			$user->name .
-			' NOTA ' . $user->pivot->punctuation .
+			' NOTA ' . $user->pivot->score .
 			' Fecha ' . $user->pivot->created_at .
 			'</li>';
 	}
