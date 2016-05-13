@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use AdvancedELOQUENT\Exam;
+use AdvancedELOQUENT\Page;
 
-class ExamTableSeeder extends Seeder
+class PageTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,6 +12,6 @@ class ExamTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(Exam::class, 20)->create();
+        factory(Page::class, 10)->create();
     }
 }

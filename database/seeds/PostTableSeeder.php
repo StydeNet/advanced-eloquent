@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use AdvancedELOQUENT\Book;
+use AdvancedELOQUENT\Post;
 
-class BookTableSeeder extends Seeder
+class PostTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,6 +12,6 @@ class BookTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(Book::class, 20)->create();
+        factory(Post::class, 5)->create();
     }
 }

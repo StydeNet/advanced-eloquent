@@ -12,20 +12,15 @@
 */
 
 use AdvancedELOQUENT\User;
+use AdvancedELOQUENT\Page;
 
 Route::get('/', function () 
 {
-	$user = User::find(1);
-	
-	echo $user->name;
-	foreach($user->exams as $exam)
-	{
-		echo 
-			'<li>'
-			. $exam->title
-			. ' Nota ' . $exam->pivot->score
-			. ' Fecha ' . $exam->pivot->created_at
-			. '</li>';
+	$page = Page::find(6);
+
+	echo $page->name;
+	foreach($page->comments as $comment){
+		echo '<li>' . $comment->body . '</li>';
 	}
 });
 
