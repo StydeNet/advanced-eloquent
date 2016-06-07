@@ -11,16 +11,24 @@
 |
 */
 
-use AdvancedELOQUENT\User;
-use AdvancedELOQUENT\Page;
+use AdvancedELOQUENT\Post;
+use AdvancedELOQUENT\Video;
+use AdvancedELOQUENT\Tag;
 
 Route::get('/', function () 
 {
-	$page = Page::find(6);
+	$post = Post::first();
 
-	echo $page->name;
-	foreach($page->comments as $comment){
-		echo '<li>' . $comment->body . '</li>';
+	echo 'POST: ' . $post->title;
+	foreach($post->tags as $tag){
+		echo '<li>' . $tag->title . '</li>';
+	}
+
+	$video = Video::first();
+
+	echo 'VIDEO: ' . $video->title;
+	foreach($video->tags as $tag){
+		echo '<li>' . $tag->title . '</li>';
 	}
 });
 

@@ -19,17 +19,3 @@ $factory->define(AdvancedELOQUENT\User::class, function (Faker\Generator $faker)
         'remember_token' => str_random(10),
     ];
 });
-
-$factory->define(AdvancedELOQUENT\Page::class, function (Faker\Generator $faker){
-	return [
-		'name' => $faker->name,
-		'body' => $faker->text,
-	];
-});
-
-$factory->define(AdvancedELOQUENT\Post::class, function (Faker\Generator $faker){
-    return [
-        'title' => $faker->name,
-        'body' => $faker->text,
-    ];
-});
