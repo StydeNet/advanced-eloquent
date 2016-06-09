@@ -1,8 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use AdvancedELOQUENT\User;
 
-class DatabaseSeeder extends Seeder
+class UserTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,7 +12,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(UserTableSeeder::class);
-        $this->call(PhotoTableSeeder::class);
+        factory(User::class, 3)->create();
     }
 }
